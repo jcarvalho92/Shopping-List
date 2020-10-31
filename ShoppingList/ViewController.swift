@@ -75,26 +75,39 @@ class ViewController: UIViewController {
     }
     @IBAction func saveButton(_ sender: UIButton) {
         //saving the info from the input Item 1 and the correspondent quantity value in an array
-        var item = Products(name: item1Text.text!, quantity: Int(quantityItem1.text!)!)
-        items += [item]
-        item = Products(name: item2Text.text!, quantity: Int(quantityItem2.text!)!)
-        items += [item]
-        item = Products(name: item3Text.text!, quantity: Int(quantityItem3.text!)!)
-        items += [item]
-        item = Products(name: item4Text.text!, quantity: Int(quantityItem4.text!)!)
-        items += [item]
-        item = Products(name: item5Text.text!, quantity: Int(quantityItem5.text!)!)
-        items += [item]
-        item = Products(name: item6Text.text!, quantity: Int(quantityItem6.text!)!)
-        items += [item]
         
-        //Saving the Shopping list data in Local Storage (user preferences)
-        //Store key-value pairs persistently across launches of your app.
-        let defaults = UserDefaults.standard
-        //passing the array with all items/quantity and for the key passing the name of the list
-        defaults.set(items, forKey: shoppingListName.text!)
-        //
-        //let products = defaults.array(forKey: shoppingListName.text!)
+        if (item1Text.text != "" ){
+          items += [Products(name: item1Text.text!, quantity: Int(quantityItem1.text!)!)]
+        }
+        if (item2Text.text != "" ){
+          items += [Products(name: item2Text.text!, quantity: Int(quantityItem2.text!)!)]
+        }
+        if (item3Text.text != "" ){
+          items += [Products(name: item3Text.text!, quantity: Int(quantityItem3.text!)!)]
+        }
+        if (item4Text.text != "" ){
+          items += [Products(name: item4Text.text!, quantity: Int(quantityItem4.text!)!)]
+        }
+        if (item5Text.text != "" ){
+          items += [Products(name: item5Text.text!, quantity: Int(quantityItem5.text!)!)]
+        }
+        if (item6Text.text != "" ){
+          items += [Products(name: item6Text.text!, quantity: Int(quantityItem6.text!)!)]
+        }
+     
+        var msg = ""
+        for product in items {
+            msg += "\(product.name) qty: \(product.quantity)\n"
+        }
+        
+        // create the alert
+        let alert = UIAlertController(title: shoppingListName.text!, message: msg, preferredStyle: UIAlertController.Style.alert)
+
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
     }
     //referencing all steppers to use it in the cancel button
     @IBOutlet weak var stepper1Value: UIStepper!
